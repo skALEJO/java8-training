@@ -5,16 +5,18 @@ import com.talos.javatraining.lesson9.events.EventBus;
 import com.talos.javatraining.lesson9.events.EventType;
 
 
-public abstract class CommandTemplate implements AppCommand
+public class CommandTemplate implements AppCommand
 {
 
 	private String[] args;
 	private EventBus eventBus;
+	private EventType eventType;
 
-	public CommandTemplate(EventBus eventBus, String... args)
+	public CommandTemplate(EventBus eventBus, EventType eventType, String... args)
 	{
 		this.args = args;
 		this.eventBus = eventBus;
+		this.eventType = eventType;
 	}
 
 	@Override
@@ -23,5 +25,8 @@ public abstract class CommandTemplate implements AppCommand
 		eventBus.notify(getEvent(), args);
 	}
 
-	public abstract EventType getEvent();
+	public EventType getEvent()
+	{
+		return eventType;
+	}
 }
